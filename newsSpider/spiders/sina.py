@@ -20,7 +20,7 @@ class SinaSpider(CrawlSpider):
         i['title'] = response.xpath("/html/head/meta[@property='og:title']/@content").extract()
         i['keywords'] = response.xpath("/html/head/meta[@name='keywords']/@content").extract()
         content = response.xpath("//div[@id='artibody']").extract()
-        i['content'] = str(content[0]).replace("\"", "|||")
+        i['content'] = str(content[0])
         i['link'] = response.url
         i['source'] = 'sina.com.cn'
         i['author'] = response.xpath("//p[@class='article-editor']/text()").extract()
