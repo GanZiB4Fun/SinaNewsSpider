@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import scrapy
-import hashlib
 
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
@@ -19,9 +17,10 @@ class SinaSpider(CrawlSpider):
 
     def parse_item(self, response):
         i = NewsspiderItem()
-        i['title'] = response.xpath('/html/head/title/text()').extract()
+        i['title'] = response.xpath("/html/head/meta[@property='og:title']/@content").extract()
         i['keywords'] = response.xpath("/html/head/meta[@name='keywords']/@content").extract()
-        i['content'] = response.xpath("//div[@id='artibody']//text()").extract()
+        content = response.xpath("//div[@id='artibody']").extract()
+        i['content'] = str(content[0]).replace("\"", "|||")
         i['link'] = response.url
         i['source'] = 'sina.com.cn'
         i['author'] = response.xpath("//p[@class='article-editor']/text()").extract()

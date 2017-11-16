@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import pymysql
 import hashlib
 import time
+
+import pymysql
 
 
 # Define your item pipelines here
@@ -36,7 +37,7 @@ class NewsspiderPipeline(object):
         self.conn.commit()
         if flag == 1:
             print('文章---' + title + '保存成功！')
-            print(article_id + '-----' + publish_time)
+            print(str(article_id) + '-----' + str(publish_time))
         else:
             print('文章---' + title + '保存失败！')
         return item
